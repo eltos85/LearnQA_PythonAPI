@@ -2,7 +2,7 @@ import requests
 import json
 import pytest
 import yaml
-y = open("../configs/config.yaml")
+y = open("configs/config.yaml")
 yaml_conf = yaml.safe_load(y)
 
 @pytest.mark.parametrize("agent", [i for i in yaml_conf])
