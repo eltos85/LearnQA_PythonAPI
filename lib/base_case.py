@@ -20,6 +20,7 @@ class BaseCase:
         except json.JSONDecodeError:
             assert False, f"Response is not in JSON format. Response text is '{response.text}'"
         assert name in response_as_dict, f"Response JSON does`t have key '{name}'"
+        return response_as_dict[name]
 
     def prepare_registration_data(self, email=None):
         if email is None:
