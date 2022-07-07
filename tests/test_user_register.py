@@ -46,4 +46,4 @@ class TestUserRegister(BaseCase):
                 f"Lens name {lens}"
         else:
             Assertions.assert_code_status(response, 200)
-            assert "id" in response.json(), "There is no parameter: id"
+            Assertions.assert_json_has_not_key(response, "id")
