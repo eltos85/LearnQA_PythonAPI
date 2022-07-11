@@ -70,6 +70,7 @@ class TestUserDelete(BaseCase):
         response2 = MyRequests.post("user", data=data2)
         response3 = MyRequests.post("user/login", data=data)
         user_id2 = self.get_json_value(response3, 'user_id')
+        token2 = self.get_header(response3, 'x-csrf-token')
 
         Assertions.assert_code_status(response2, 200)
         Assertions.assert_json_has_key(response2, "id")
@@ -79,7 +80,7 @@ class TestUserDelete(BaseCase):
         # rty delete user
 
         response4 = MyRequests.delete(f'user/{user_id2}',
-                                              headers={'x-csrf-token': token},
+                                              headers={'x-csrf-token': token2},
                                               cookies={'auth_sid': auth_sid},
                                               data=data
                                               )
