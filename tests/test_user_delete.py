@@ -1,8 +1,16 @@
 from lib.assertions import Assertions
 from lib.base_case import BaseCase
 from lib.my_requests import MyRequests
+import allure
 
+
+@allure.epic("Delete users")
+@allure.feature("Deletion")
 class TestUserDelete(BaseCase):
+    @allure.title("Correct user deletion")
+    @allure.description("deleting users")
+    @allure.story("test_delete_user")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_delete_user(self):
         data = {
             'email': 'vinkotov@example.com',
@@ -20,6 +28,10 @@ class TestUserDelete(BaseCase):
         Assertions.assert_code_status(response2, 400)
         Assertions.assert_error_message(response2, 'Please, do not delete test users ')
 
+    @allure.title("Registering and deleting a user")
+    @allure.description("Deleting a user immediately after authorization")
+    @allure.story("test_reg_and_delete_user")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_reg_and_delete_user(self):
         # registration
         data = self.prepare_registration_data()
@@ -47,6 +59,10 @@ class TestUserDelete(BaseCase):
         Assertions.assert_code_status(response3, 400)
         Assertions.assert_error_message(response3, 'Invalid username/password supplied')
 
+    @allure.title("Deleting a user by another user")
+    @allure.description("Deleting a user using the authorization data of another")
+    @allure.story("test_delete_user_wrong_auth")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_delete_user_wrong_auth(self):
 
 
